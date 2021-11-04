@@ -8,6 +8,7 @@
 // std lib headers
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace ge {
 
@@ -16,10 +17,11 @@ class GeSwapChain {
   static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
 
   GeSwapChain(GeDevice &deviceRef, VkExtent2D windowExtent);
+  GeSwapChain(GeDevice &deviceRef, VkExtent2D windowExtent, std::shared_ptr<GeSwapChain> previous);
   ~GeSwapChain();
 
   GeSwapChain(const GeSwapChain &) = delete;
-  void operator=(const GeSwapChain &) = delete;
+  GeSwapChain& operator=(const GeSwapChain &) = delete;
 
   VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
   VkRenderPass getRenderPass() { return renderPass; }
@@ -39,6 +41,7 @@ class GeSwapChain {
   VkResult submitCommandBuffers(const VkCommandBuffer *buffers, uint32_t *imageIndex);
 
  private:
+  void init();
   void createSwapChain();
   void createImageViews();
   void createDepthResources();
@@ -69,6 +72,7 @@ class GeSwapChain {
   VkExtent2D windowExtent;
 
   VkSwapchainKHR swapChain;
+  std::shared_ptr<GeSwapChain> oldSwapChain;
 
   std::vector<VkSemaphore> imageAvailableSemaphores;
   std::vector<VkSemaphore> renderFinishedSemaphores;

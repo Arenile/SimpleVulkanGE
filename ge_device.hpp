@@ -35,7 +35,7 @@ class GeDevice {
 
   // Not copyable or movable
   GeDevice(const GeDevice &) = delete;
-  void operator=(const GeDevice &) = delete;
+  GeDevice& operator=(const GeDevice &) = delete;
   GeDevice(GeDevice &&) = delete;
   GeDevice &operator=(GeDevice &&) = delete;
 

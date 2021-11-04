@@ -11,6 +11,8 @@ namespace ge
     {
         public:
 
+            GLFWwindow* getWindow() {return window;}
+
             GeWindow(int w, int h, std::string windowName);
             ~GeWindow();
 
@@ -18,7 +20,9 @@ namespace ge
             GeWindow(const GeWindow &) = delete;
             GeWindow &operator=(const GeWindow &) = delete;
 
-            bool shouldClose() {return glfwWindowShouldClose(window);}
+            bool shouldClose() { return glfwWindowShouldClose(window); }
+            bool wasWindowResized() { return framebufferResized; }
+            void resetWindowResizedFlag() { framebufferResized = false; }
             VkExtent2D getExtent() { 
                 return { static_cast<uint32_t>(width), 
                          static_cast<uint32_t>(height)}; }
@@ -26,11 +30,14 @@ namespace ge
             void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
 
         private:
+            static void framebufferResizeCallback(GLFWwindow *window, int width, int height);
 
             void initWindow();
 
-            const int width;
-            const int height;
+            int width;
+            int height;
+            bool framebufferResized = false;
+
             std::string windowName;
 
             GLFWwindow *window;
