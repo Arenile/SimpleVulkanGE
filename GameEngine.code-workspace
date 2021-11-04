@@ -6,7 +6,8 @@
 	],
 	"settings": {
 		"files.associations": {
-			"fstream": "cpp"
+			"fstream": "cpp",
+			"array": "cpp"
 		}
 	}
 }
