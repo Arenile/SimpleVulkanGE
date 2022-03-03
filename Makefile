@@ -8,7 +8,7 @@ fragSources = $(shell find ./shaders -type f -name "*.frag")
 fragObjFiles = $(patsubst %.frag, %.frag.spv, $(fragSources))
 
 GameEngine: *.cpp *.hpp
-	g++ $(CFLAGS) -o GameEngine *.cpp $(LDFLAGS) && ./compile.sh
+	g++ $(CFLAGS) -o GameEngine *.cpp $(LDFLAGS) && ./compile_shaders.sh
 
 .PHONY: test clean
 

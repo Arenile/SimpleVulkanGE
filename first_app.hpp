@@ -4,7 +4,7 @@
 #include "ge_pipeline.hpp"
 #include "ge_device.hpp"
 #include "ge_swap_chain.hpp"
-#include "ge_model.hpp"
+#include "ge_game_object.hpp"
 
 #include <memory>
 #include <vector>
@@ -31,7 +31,7 @@ namespace ge
         void run();
 
         private:
-            void loadModels();
+            void loadGameObjects();
             void createPipelineLayout();
             void createPipeline();
             void createCommandBuffers();
@@ -39,6 +39,7 @@ namespace ge
             void drawFrame();
             void recreateSwapChain();
             void recordCommandBuffer(int imageIndex);
+            void renderGameObjects(VkCommandBuffer commandBuffer);
 
             void sierpinski(
                 std::vector<GeModel::Vertex> &vertices,
@@ -54,6 +55,6 @@ namespace ge
             std::unique_ptr<GePipeline> gePipeline;
             VkPipelineLayout pipelineLayout;
             std::vector<VkCommandBuffer> commandBuffers;
-            std::unique_ptr<GeModel> geModel;
+            std::vector<GeGameObject> gameObjects;
     };
 }
