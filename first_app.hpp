@@ -1,10 +1,9 @@
 #pragma once
 
 #include "ge_window.hpp"
-#include "ge_pipeline.hpp"
 #include "ge_device.hpp"
-#include "ge_swap_chain.hpp"
 #include "ge_game_object.hpp"
+#include "ge_renderer.hpp"
 
 #include <memory>
 #include <vector>
@@ -32,29 +31,11 @@ namespace ge
 
         private:
             void loadGameObjects();
-            void createPipelineLayout();
-            void createPipeline();
-            void createCommandBuffers();
-            void freeCommandBuffers();
-            void drawFrame();
-            void recreateSwapChain();
-            void recordCommandBuffer(int imageIndex);
-            void renderGameObjects(VkCommandBuffer commandBuffer);
-
-            void sierpinski(
-                std::vector<GeModel::Vertex> &vertices,
-                int depth,
-                glm::vec2 left,
-                glm::vec2 right,
-                glm::vec2 top
-            );
 
             GeWindow geWindow{WIDTH, HEIGHT, "Hello Vulkan!"};
             GeDevice geDevice{geWindow};
-            std::unique_ptr<GeSwapChain> geSwapChain;
-            std::unique_ptr<GePipeline> gePipeline;
-            VkPipelineLayout pipelineLayout;
-            std::vector<VkCommandBuffer> commandBuffers;
+            GeRenderer geRenderer{geWindow, geDevice};
+
             std::vector<GeGameObject> gameObjects;
     };
 }
