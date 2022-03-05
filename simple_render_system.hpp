@@ -3,6 +3,7 @@
 #include "ge_pipeline.hpp"
 #include "ge_device.hpp"
 #include "ge_game_object.hpp"
+#include "ge_camera.hpp"
 
 #include <memory>
 #include <vector>
@@ -23,7 +24,7 @@ namespace ge
         SimpleRenderSystem(const SimpleRenderSystem &) = delete;
         SimpleRenderSystem operator=(const SimpleRenderSystem &) = delete;
 
-        void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<GeGameObject> &gameObjects);
+        void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<GeGameObject> &gameObjects, const GeCamera &camera);
 
         private:
             void createPipelineLayout();

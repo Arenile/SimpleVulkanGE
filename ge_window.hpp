@@ -28,6 +28,7 @@ namespace ge
                          static_cast<uint32_t>(height)}; }
 
             void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
+            GLFWwindow* getGLFWWindow() const { return window; }
 
         private:
             static void framebufferResizeCallback(GLFWwindow *window, int width, int height);

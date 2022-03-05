@@ -24,6 +24,7 @@ namespace ge
         GeRenderer operator=(const GeRenderer &) = delete;
 
         VkRenderPass getSwapChainRenderPass() const { return geSwapChain->getRenderPass(); }
+        float getAspectRatio() const { return geSwapChain->extentAspectRatio(); }
         bool isFrameInProgress() const { return isFrameStarted; }
 
         VkCommandBuffer getCurrentCommandBuffer() const {
