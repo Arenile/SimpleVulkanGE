@@ -2,6 +2,8 @@
 #include "simple_render_system.hpp"
 #include "ge_camera.hpp"
 #include "keyboard_movement_controller.hpp"
+#include "ge_model_component.hpp"
+#include "ge_coordinator.hpp"
 
 #include <stdexcept>
 #include <array>
@@ -68,7 +70,7 @@ namespace ge
     }
 
     // temporary helper function, creates a 1x1x1 cube centered at offset
-std::unique_ptr<GeModel> createCubeModel(GeDevice& device, glm::vec3 offset) {
+/*std::unique_ptr<GeModel> createCubeModel(GeDevice& device, glm::vec3 offset) {
   std::vector<GeModel::Vertex> vertices{
  
       // left face (white)
@@ -126,14 +128,20 @@ std::unique_ptr<GeModel> createCubeModel(GeDevice& device, glm::vec3 offset) {
   }
 
   return std::make_unique<GeModel>(device, vertices);
-}
-
+}*/
+    GeCoordinator coordinator;
     void FirstApp::loadGameObjects()
     {
-        std::shared_ptr<GeModel> geModel = createCubeModel(geDevice, {0.0f, 0.0f, 0.0f});
+
+        //std::shared_ptr<GeModel> geModel = createCubeModel(geDevice, {0.0f, 0.0f, 0.0f});
+        std::shared_ptr<CubeModel> cubeModel;
+        auto cubeEntity = coordinator.createEntity();
+
+        coordinator.addComponent(cubeEntity, cubeModel);
+
 
         auto cube = GeGameObject::createGameObject();
-        cube.model = geModel;
+        //cube.model = geModel;
         cube.transform.translation = {0.0f, 0.0f, 2.5f};
         cube.transform.scale = {0.5f, 0.5f, 0.5f};
         gameObjects.push_back(std::move(cube));
